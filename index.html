@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FreePDF Editor – edit, sign &amp; fill PDFs for free</title>
+<meta name="description" content="Free, private PDF editor in your browser. Edit text, add signatures, draw, insert images, and download. No upload, no sign-up.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand">FreePDF<b>Editor</b></div>
+  <button id="openBtn" class="btn">Open PDF</button>
+  <input id="file" type="file" accept="application/pdf,.pdf" hidden>
+  <span id="fname" title=""></span>
+  <span class="sp"></span>
+  <button class="btn ic" id="undo" title="Undo (Ctrl+Z)" disabled>↶</button>
+  <button class="btn ic" id="redo" title="Redo (Ctrl+Shift+Z)" disabled>↷</button>
+  <span class="sep"></span>
+  <button class="btn ic" id="zout" title="Zoom out">−</button>
+  <button class="btn" id="zlbl" title="Fit width">100%</button>
+  <button class="btn ic" id="zin" title="Zoom in">+</button>
+  <span class="sep"></span>
+  <label class="chk" title="Smart alignment guides & snapping"><input type="checkbox" id="snap" checked> Snap</label>
+  <label class="chk" title="10-pt grid"><input type="checkbox" id="grid"> Grid</label>
+  <span class="pg" id="pgind"></span>
+  <button id="done" class="btn primary" disabled>Done — Download</button>
+</header>
+
+<div id="props">
+  <select id="pFont" title="Font"><option>Helvetica</option><option>Times</option><option>Courier</option></select>
+  <input id="pSize" type="number" min="4" max="200" value="14" title="Font size (pt)">
+  <button class="btn ic" id="pBold" title="Bold"><b>B</b></button>
+  <button class="btn ic" id="pItalic" title="Italic"><i>I</i></button>
+  <input id="pColor" type="color" value="#000000" title="Color">
+  <label class="chk" title="Brush width (pt)">Brush <input id="pWidth" type="range" min="1" max="12" value="2"></label>
+  <span class="sp"></span>
+  <button class="btn" id="pDel" title="Delete selected (Del)">Delete</button>
+</div>
+
+<main>
+  <nav id="tools">
+    <button data-tool="select" class="on" title="Select / edit existing text (V)"><i>↖</i>Edit</button>
+    <button data-tool="text" title="Add text (T)"><i>T</i>Text</button>
+    <button data-tool="draw" title="Brush (B)"><i>✎</i>Brush</button>
+    <button data-tool="sign" title="Sign"><i>✍</i>Sign</button>
+    <button data-tool="image" title="Insert image"><i>▣</i>Image</button>
+    <button data-tool="white" title="Whiteout / erase (W)"><i>▭</i>Erase</button>
+  </nav>
+  <section id="viewer">
+    <div id="drop">
+      <div class="card">
+        <h1>Edit any PDF. Free.</h1>
+        <p>Click and type over existing text, add text, signatures, drawings and images. Everything runs in your browser — your file never leaves your device.</p>
+        <button class="btn primary big" id="openBtn2">Choose a PDF</button>
+        <p class="hint">or drop a file anywhere on this page</p>
+      </div>
+    </div>
+    <div id="pages"></div>
+  </section>
+</main>
+
+<div id="toast" role="status"></div>
+<input id="imgFile" type="file" accept="image/*" hidden>
+
+<dialog id="sigDlg">
+  <form method="dialog">
+    <h3>Create signature</h3>
+    <div class="tabs"><button type="button" data-tab="draw" class="on">Draw</button><button type="button" data-tab="type">Type</button></div>
+    <div id="tabDraw"><canvas id="sigCv" width="1000" height="320"></canvas></div>
+    <div id="tabType" hidden><input id="sigText" placeholder="Type your name" maxlength="40"><div id="sigTypePrev"></div></div>
+    <div class="row">
+      <label>Ink <select id="sigInk"><option value="#111111">Black</option><option value="#1d3fbf">Blue</option></select></label>
+      <button type="button" class="btn" id="sigClear">Clear</button>
+      <span class="sp"></span>
+      <span id="sigSaved"></span>
+    </div>
+    <div class="row end"><button class="btn" value="cancel">Cancel</button><button type="button" class="btn primary" id="sigUse">Use signature</button></div>
+  </form>
+</dialog>
+
+<script src="vendor/pdf-lib.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
